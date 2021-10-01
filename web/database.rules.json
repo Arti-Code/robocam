@@ -1,0 +1,25 @@
+{
+  "rules": {
+    "devices" : {
+      "$uid" : {
+          ".read": "(auth != null && auth.token.email_verified === true) && ($uid == auth.uid || root.child('users').child('group').child($uid).child(auth.uid).exists())",
+          ".write": "$uid == auth.uid || root.child('users').child('group').child($uid).child(auth.uid).exists()"
+      }
+    },
+    "messages" : {
+      "$uid" : {
+        "$deviceid" : {
+          ".read": "(auth != null && auth.token.email_verified === true) && ($uid == auth.uid || root.child('users').child('group').child($uid).child(auth.uid).exists())",
+          ".write": "$uid == auth.uid || root.child('users').child('group').child($uid).child(auth.uid).exists()"
+        }
+      }
+    },
+    "users" : {
+      "$uid" : {
+          ".read": "(auth != null && auth.token.email_verified === true) && ($uid == auth.uid || root.child('users').child('group').child($uid).child(auth.uid).exists())",
+          ".write": "$uid == auth.uid || root.child('users').child('group').child($uid).child(auth.uid).exists()"
+      }
+    }
+  }
+}
+
