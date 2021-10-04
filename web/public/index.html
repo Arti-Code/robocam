@@ -25,7 +25,7 @@
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue-light_blue.min.css">
+<!--   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue-light_blue.min.css"> -->
   <link rel="stylesheet" href="styles/styles.css">
 
   <!-- update the version number as needed -->
@@ -45,185 +45,98 @@
   <script src="scripts/devicetable.js"></script>
   <script src="scripts/main.js"></script>
   <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-
-  <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js"></script>
+<!--   <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>   -->
 </head>
 
-<body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+<body>
 
-  <div class="mdl-layout mdl-js-layout">
-    <header class="demo-header-image mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
-      <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
-        <!-- <div class="mdl-layout__header-row mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
-          
-        </div> -->
-        <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
-          <h3>RobotController</h3>
-          <a href="#devices" class="mdl-layout__tab is-active">Devices</a>
-          <button id="sign-out"
-            class="mdl-button mdl-js-button mdl-button mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent">
-            <span>Sign Out</span>
-          </button>
-        </div>
-      </div>
-    </header>
-
-    <main class="demo-body-image mdl-layout__content">
-
-      <div class="mdl-layout__tab-panel" id="overview">
-        <!-- overview -->
-      </div>
-
-
-      <div class="mdl-layout__tab-panel is-active" id="devices">
-        <section class="section--center mdl-grid mdl-grid--no-spacing">
-          <div class="mdl-cell mdl-cell--12-col">
-            <h4>Devices List</h4>
-
-            <table id="device_table" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-              <thead>
-                <tr>
-                  <th class="mdl-data-table__cell--non-numeric">Title</th>
-                  <th>Description</th>
-                  <th>Connection</th>
-                  <th>View</th>
-                </tr>
-              </thead>
-              <tbody id="device_table_body">
-                <!-- The rows values in the device table are updated with the contents registered in the database. -->
-              </tbody>
-            </table>
-
-          </div>
-          <div class="mdl-cell mdl-cell--12-col">
-            <video class="dialog-video__align-center" id="remoteVideo" autoplay playsinline controls muted border="1"
-              alt=""></video>
-          </div>
-        </section>
-      </div>
-
-      <template id="device_list_tmpl">
-        <tr>
-          <td id="title" class="mdl-data-table__cell--non-numeric">TMPL_TITLE</td>
-          <td id="description">TMPL_DESCRIPTION</td>
-          <td id="state">TMPL_STATE</td>
-          <td>
-            <button id="button" class="mdl-button mdl-js-button mdl-button--raised"
-              onclick=ShowDialogBox("TMPL_DEVICEID")>Connect</button>
-          </td>
-        </tr>
-      </template>
-
-      <div class="mdl-layout__tab-panel" id="devices">
-        <!-- devices -->
-      </div>
-      <div class="mdl-layout__tab-panel" id="setup">
-        <!-- setup -->
-      </div>
-      <div class="mdl-layout__tab-panel" id="faq">
-        <!-- faq -->
-      </div>
-
-      <style>
-        .mdl-dialog {
-          border: none;
-          box-shadow: 0 9px 46px 8px rgba(0, 0, 0, 0.14), 0 11px 15px -7px rgba(0, 0, 0, 0.12), 0 24px 38px 3px rgba(0, 0, 0, 0.2);
-          width: 664;
-          height: 600px;
-        }
-
-        .mdl-dialog__title {
-          padding: 24px 24px 0;
-          margin: 0;
-          font-size: 2.5rem;
-        }
-
-        .mdl-dialog__actions {
-          padding: 8px 8px 8px 24px;
-          display: -webkit-flex;
-          display: -ms-flexbox;
-          display: flex;
-          -webkit-flex-direction: row-reverse;
-          -ms-flex-direction: row-reverse;
-          flex-direction: row-reverse;
-          -webkit-flex-wrap: wrap;
-          -ms-flex-wrap: wrap;
-          flex-wrap: wrap;
-        }
-
-        .mdl-dialog__actions>* {
-          margin-right: 8px;
-          height: 36px;
-        }
-
-        .mdl-dialog__actions>*:first-child {
-          margin-right: 0;
-        }
-
-        .mdl-dialog__actions--full-width {
-          padding: 0 0 8px 0;
-        }
-
-        .mdl-dialog__actions--full-width>* {
-          height: 48px;
-          -webkit-flex: 0 0 100%;
-          -ms-flex: 0 0 100%;
-          flex: 0 0 100%;
-          padding-right: 16px;
-          margin-right: 0;
-          text-align: right;
-        }
-
-        .mdl-dialog__content {
-          padding: 20px 24px 24px 24px;
-          color: rgba(0, 0, 0, 0.54);
-        }
-
-        .dialog-video__align-center {
-          margin-left: auto;
-          margin-right: auto;
-          margin: 0 auto;
-          width: 640;
-          display: block
-        }
-      </style>
-
-      <script>
-        var ShowDialogBox = function (data) {
-          var remoteVideoElement = document.getElementById("remoteVideo");
-          trace('Creating firebase signnaling channel for ' + data);
-          window.firebase_signaling_channel_ = new FirebaseSignalingChannel(data, remoteVideo);
-          window.firebase_signaling_channel_.doSignalingConnect();
-        };
-
-        var ClosingDialogBox = function () {
-          trace('dialog box closing.');
-          if (window.firebase_signaling_channel_ !== undefined &&
-            window.firebase_signaling_channel_ !== null) {
-            window.firebase_signaling_channel_.doSignalingDisconnnect();
-            window.firebase_signaling_channel_ = null;
-          }
-        }
-
-        dialog.addEventListener('close', function () {
-          trace('dialog closed');
-          ClosingDialogBox();
-        });
-        dialog.addEventListener('cancel', function () {
-          trace('dialog canceled');
-          ClosingDialogBox();
-        });
-
-        document.getElementById('close').addEventListener('click', function () {
-          dialog.close();
-        });
-      </script>
-
-      <footer class="mdl-mega-footer">
-      </footer>
-    </main>
+  <div class="container mx-auto">
+    <h3>RobotController</h3>
+    <button id="sign-out">
+      <span>Sign Out</span>
+    </button>
   </div>
+
+  <div class="container mx-auto">
+    <div class="container mx-auto">
+      <h4 class="align-center">Devices List</h4>
+      <table id="device_table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Connection</th>
+            <th>View</th>
+          </tr>
+        </thead>
+        <tbody id="device_table_body">
+          <!-- The rows values in the device table are updated with the contents registered in the database. -->
+        </tbody>
+      </table>
+    </div>
+    <div class="container mx-auto">
+      <video class="mx-auto" width="400" height="300"
+        id="remoteVideo" autoplay playsinline controls muted border="1" alt="">
+      </video>
+    </div>
+  </div>
+
+  <template id="device_list_tmpl">
+    <tr>
+      <td id="title">TMPL_TITLE</td>
+      <td id="description">TMPL_DESCRIPTION</td>
+      <td id="state">TMPL_STATE</td>
+      <td>
+        <button id="button"
+          onclick=ShowDialogBox("TMPL_DEVICEID")>Connect</button>
+      </td>
+    </tr>
+  </template>
+
+  <div id="devices">
+    <!-- devices -->
+  </div>
+  <div id="setup">
+    <!-- setup -->
+  </div>
+  <div id="faq">
+    <!-- faq -->
+  </div>
+
+  <script>
+    var ShowDialogBox = function (data) {
+      var remoteVideoElement = document.getElementById("remoteVideo");
+      trace('Creating firebase signnaling channel for ' + data);
+      window.firebase_signaling_channel_ = new FirebaseSignalingChannel(data, remoteVideo);
+      window.firebase_signaling_channel_.doSignalingConnect();
+    };
+
+    var ClosingDialogBox = function () {
+      trace('dialog box closing.');
+      if (window.firebase_signaling_channel_ !== undefined &&
+        window.firebase_signaling_channel_ !== null) {
+        window.firebase_signaling_channel_.doSignalingDisconnnect();
+        window.firebase_signaling_channel_ = null;
+      }
+    }
+
+    dialog.addEventListener('close', function () {
+      trace('dialog closed');
+      ClosingDialogBox();
+    });
+    dialog.addEventListener('cancel', function () {
+      trace('dialog canceled');
+      ClosingDialogBox();
+    });
+
+    document.getElementById('close').addEventListener('click', function () {
+      dialog.close();
+    });
+  </script>
+
 </body>
 
 </html>
