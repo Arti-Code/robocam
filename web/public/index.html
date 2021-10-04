@@ -43,55 +43,37 @@
   <script src="scripts/devicetable.js"></script>
   <script src="scripts/main.js"></script>
   <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-<!--   <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>   -->
 </head>
 
 <body>
 
   <div class="container mx-auto">
-    <div id="devicesList">
-      <button class="btn btn-primary" id="sign-out">
-        <span>Sign Out</span>
-      </button>
-      <table id="device_table">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Connection</th>
-            <th>View</th>
-          </tr>
-        </thead>
-        <tbody id="device_table_body">
-        </tbody>
-      </table>
+
+    <div class="row" id="devices-row">
+      <div class="col-8" id="devices-list">
+
+      </div>
+
+      <div class="col-2">
+        <button class="btn btn-warning" id="sign-out">Sign Out</button>
+      </div>
+
     </div>
 
     <div id="robotStream" hidden>
-      <video class="mx-auto" width="400" height="300" id="remoteVideo" autoplay playsinline controls muted border="1" alt="">
-      </video>
+      <video class="mx-auto" width="400" height="300" id="remoteVideo" autoplay playsinline controls muted border="1" alt=""></video>
     </div>
-  </div>
 
-  <template id="device_list_tmpl">
-    <tr>
-      <td id="title">TMPL_TITLE</td>
-      <td id="description">TMPL_DESCRIPTION</td>
-      <td id="state">TMPL_STATE</td>
-      <td>
-        <button id="button" class="btn btn-success" onclick=Connect("TMPL_DEVICEID")>Connect</button>
-      </td>
-    </tr>
-  </template>
+  </div>
 
   <script>
     var Connect = function (data) {
-      var devicesList = document.getElementById("devicesList");
+      var devicesList = document.getElementById("devices-row");
       var robotStream = document.getElementById("robotStream");
       var remoteVideoElement = document.getElementById("remoteVideo");
       var signOut = document.getElementById("sign-out");
       devicesList.setAttribute("hidden", "true");
-      signOut.setAttribute("hidden", "true");
+      //signOut.setAttribute("hidden", "true");
       robotStream.removeAttribute("hidden")
       trace('Creating firebase signnaling channel for ' + data);
       window.firebase_signaling_channel_ = new FirebaseSignalingChannel(data, remoteVideo);

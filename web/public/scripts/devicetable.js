@@ -49,38 +49,38 @@ DeviceTable.prototype.updateDom_ = function(snapshot) {
     trace('Device Val :  ' + JSON.stringify(deviceVal));
 
     var deviceElement = document.getElementById(deviceVal.deviceid);
-    // If an element for device element does not exists, we need to create it.
+    var devicesList = document.getElementById("devices-list");
     if (deviceElement == null ) {
-        if ('content' in document.createElement('template')) {
-            // Instantiate the table with the existing HTML tbody and the row with the template
-            var t = document.querySelector('#device_list_tmpl');
-            // t.setAttribute('id', deviceVal.deviceid);
-            var td = t.content.querySelectorAll("td");
-            td[0].textContent = deviceVal.title;
-            td[1].textContent = deviceVal.description;
-            td[2].textContent = deviceVal.session;
-            var button = t.content.getElementById("button")
-            button.setAttribute('onclick', 'Connect("' + deviceVal.deviceid + '")')
-
-            var tr = t.content.querySelectorAll("tr");
-            tr[0].setAttribute('id', deviceVal.deviceid);
-
-            var clone = document.importNode(t.content, true);
-            // clone.setAttribute('id', deviceVal.deviceid);
-		    this.deviceTable_.appendChild(clone);
-            console.log(clone);
+        var btn = document.createElement("BUTTON");
+        btn.innerText = deviceVal.title;
+        btn.id = deviceVal.deviceid
+        if (deviceVal.session == "available") {
+            btn.classList = "btn btn-primary";
         } else {
-            // Find another way to add the rows to the table because 
-            // the HTML template element is not supported.
-            trace("HTML template  is not supporeted in this browser");
+            btn.classList = "btn btn-secondary";
+        }
+        btn.setAttribute('onclick', 'Connect("' + deviceVal.deviceid + '")');
+        devicesList.appendChild(btn);
+        /* var t = document.querySelector('#device_list_tmpl');
+        t.setAttribute('id', deviceVal.deviceid);
+        var td = t.content.querySelectorAll("td");
+        td[0].textContent = deviceVal.title;
+        td[1].textContent = deviceVal.description;
+        td[2].textContent = deviceVal.session;
+        var button = t.content.getElementById("button")
+        var tr = t.content.querySelectorAll("tr");
+        tr[0].setAttribute('id', deviceVal.deviceid);
+        var clone = document.importNode(t.content, true);
+        clone.setAttribute('id', deviceVal.deviceid);
+        this.deviceTable_.appendChild(clone);
+        console.log(clone); */
+    } else {
+        if (deviceVal.session == "available") {
+            deviceElement.classList = "btn btn-primary"
+        } else {
+            deviceElement.classList = "btn btn-secondary"
         }
     }
-    else {
-        var td = deviceElement.querySelectorAll("td");
-        // update only session information
-        td[2].textContent = deviceVal.session;
-        console.log(td);
-    }
-    componentHandler.upgradeAllRegistered();
+    //componentHandler.upgradeAllRegistered();
 };
 
