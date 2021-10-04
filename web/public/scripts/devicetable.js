@@ -60,7 +60,7 @@ DeviceTable.prototype.updateDom_ = function(snapshot) {
             td[1].textContent = deviceVal.description;
             td[2].textContent = deviceVal.session;
             var button = t.content.getElementById("button")
-            button.setAttribute('onclick', 'ShowDialogBox("' + deviceVal.deviceid + '")')
+            button.setAttribute('onclick', 'Connect("' + deviceVal.deviceid + '")')
 
             var tr = t.content.querySelectorAll("tr");
             tr[0].setAttribute('id', deviceVal.deviceid);
